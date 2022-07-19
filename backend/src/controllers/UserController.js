@@ -1,12 +1,12 @@
 /* eslint-disable no-useless-escape */
 const argon2 = require("argon2");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const Joi = require("joi");
 const models = require("../models");
 
 class UserController {
   static register = async (req, res) => {
-    const { email, password, pseudo } = req.body.data;
+    const { email, password, pseudo } = req.body;
 
     const schema = Joi.object({
       pseudo: Joi.string().required(),
@@ -48,6 +48,53 @@ class UserController {
         error: err.message,
       });
     }
+  };
+
+  static login = (req, res) => {
+    const { pseudo, password } = req.body;
+
+    if (!pseudo || !password) {
+      res.status(400).send({ error: "Please specify both email and password" });
+    }
+
+    models.user
+      .findByPseudo(pseudo)
+      .then(async ([rows]) => {
+        if (rows[0] == null) {
+          res.status(401).send({
+            error: "Invalid credentials 1",
+          });
+        } else {
+          const { id, password: hash } = rows[0];
+
+          if (await argon2.verify(hash, password)) {
+            const token = jwt.sign({ id }, process.env.JWT_AUTH_SECRET, {
+              expiresIn: "1h",
+            });
+
+            res
+              .cookie("access_token", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+              })
+              .status(200)
+              .send({
+                id,
+                pseudo,
+              });
+          } else {
+            res.status(401).send({
+              error: "Invalid credentials 2",
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({
+          error: err.message,
+        });
+      });
   };
 
   static browse = (req, res) => {

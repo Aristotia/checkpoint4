@@ -8,9 +8,9 @@ import axios from "axios";
 export default function Counter(props) {
   const { handleDisplay } = props;
   const validationSchema = yup.object().shape({
-    pseudo: yup.string().required(),
-    email: yup.string().email().required(),
-    password: yup.string().required(),
+    pseudo: yup.string().required("Le pseudo est requis"),
+    email: yup.string().email().required("L'email est requis"),
+    password: yup.string().required("Le mot de passe est requis"),
   });
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, formState } = useForm(formOptions);
@@ -19,7 +19,6 @@ export default function Counter(props) {
   const handleRegister = (data) => {
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/users/register`, data)
-      .then((response) => console.error(response))
       .then(() => handleDisplay())
       .catch((error) => console.error(error));
   };
@@ -39,8 +38,11 @@ export default function Counter(props) {
           {...register("password")}
         />
 
-        <input type="submit" value="S'enregistrer" />
+        <input type="submit" value="S'enregistrer" id="register-button" />
       </form>
+      <button type="button" className="redirect-button" onClick={handleDisplay}>
+        <h4>Revenir à la connexion</h4>
+      </button>
     </div>
   );
 }
