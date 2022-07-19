@@ -1,36 +1,13 @@
-import Counter from "../components/Counter";
-import logo from "../assets/logo.svg";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Home() {
-  return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>Hello Vite + React !</p>
+  // console.log(`${import.meta.env.API_KEY}`)
+  useEffect(() => {
+    axios
+      .get(`https://imdb-api.com/en/API/Posters/k_q60exywl/tt1375666`)
+      .then((response) => console.error(response.data));
+  }, []);
 
-      <Counter />
-
-      <p>
-        Edit <code>App.jsx</code>.
-      </p>
-      <p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {" | "}
-        <a
-          className="App-link"
-          href="https://vitejs.dev/guide/features.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vite Docs
-        </a>
-      </p>
-    </header>
-  );
+  return <div>Henlo</div>;
 }

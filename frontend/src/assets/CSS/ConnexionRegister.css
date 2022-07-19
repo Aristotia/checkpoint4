@@ -1,0 +1,61 @@
+.connexion-register-page {
+  height: 100vh;
+  background-color: var(--additional-color2);
+}
+
+.connexion-register-interface {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 80%;
+}
+
+.image-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white-color);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin: 3rem;
+}
+
+.connexion-register-interface img {
+  width: 200px;
+}
+
+.connexion-register-form {
+  display: flex;
+  gap: 1rem;
+  width: 15rem;
+  flex-direction: column;
+}
+
+.connexion-register-form input {
+  height: 2rem;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--additional-color1);
+  color: var(--white-color);
+  text-align: center;
+  font-weight: bolder;
+  font-family: var(--nunito);
+}
+
+.connexion-register-form input::placeholder{
+  color: var(--white-color);
+  text-align: center;
+}
+
+.register-button {
+  font-size: 15px;
+  border: none;
+  text-decoration: underline;
+  background: var(--additional-color2);
+  border-radius: 25px;
+  color: var(--white-color);
+  font-weight: bolder;
+}
