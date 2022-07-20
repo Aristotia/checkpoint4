@@ -1,36 +1,48 @@
-import Counter from "../components/Counter";
-import logo from "../assets/logo.svg";
+import axios from "axios";
+import { useState } from "react";
+import Searchbar from "../components/Searchbar";
+import Header from "../components/Header";
+import "../assets/CSS/Home.css";
 
 export default function Home() {
+  const [searchResult, setSearchResult] = useState();
+  const [searchParameters, setSearchParameters] = useState("");
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const URLAPI = `http://www.omdbapi.com/?apikey=${
+      import.meta.env.VITE_API_KEY
+    }&t=${searchParameters}`;
+    const URLBDD = `${import.meta.env.VITE_BACKEND_URL}/movies`;
+    const promise1 = axios.get(URLAPI);
+    const promise2 = axios.get(URLBDD);
+    Promise.all([promise1, promise2]).then((values) => {
+      const movieFound = values[0].data;
+      const movieIDBDD = values[1].data.map((movie) => movie.id_IMDB);
+      const isMovieInBDD = movieIDBDD.includes(movieFound.imdbID);
+      setSearchResult(movieFound);
+
+      if (!isMovieInBDD) {
+        axios
+          .post(`${import.meta.env.VITE_BACKEND_URL}/movies`, {
+            id_IMDB: movieFound.imdbID,
+          })
+          .catch((err) => console.error(err));
+      }
+    });
+  };
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>Hello Vite + React !</p>
+    <div className="Home">
+      <Header />
 
-      <Counter />
-
-      <p>
-        Edit <code>App.jsx</code>.
-      </p>
-      <p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        {" | "}
-        <a
-          className="App-link"
-          href="https://vitejs.dev/guide/features.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Vite Docs
-        </a>
-      </p>
-    </header>
+      <Searchbar
+        searchResult={searchResult}
+        setSearchResult={setSearchResult}
+        searchParameters={searchParameters}
+        setSearchParameters={setSearchParameters}
+        handleSearchSubmit={handleSearchSubmit}
+      />
+      <h1>Bienvenue sur le site du sel cinématographique</h1>
+    </div>
   );
 }

@@ -1,0 +1,31 @@
+.UserProfile {
+  background-color: var(--additional-color2);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.user-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.user-profile-form h4 {
+  margin: 0;
+}
+
+.user-profile-form input {
+  width: 100%;
+  height: 2rem;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--white-color);
+  color: var(--additional-color1);
+  text-align: center;
+  font-weight: bolder;
+  font-family: var(--nunito);
+
+}

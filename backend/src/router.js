@@ -1,13 +1,20 @@
 const express = require("express");
 
-const { ItemController } = require("./controllers");
+const { UserController, MovieController } = require("./controllers");
+// const { authorization } = require("./controllers/UserController");
 
 const router = express.Router();
 
-router.get("/items", ItemController.browse);
-router.get("/items/:id", ItemController.read);
-router.put("/items/:id", ItemController.edit);
-router.post("/items", ItemController.add);
-router.delete("/items/:id", ItemController.delete);
+router.post("/users/register", UserController.register);
+router.post("/users/login", UserController.login);
+router.get("/users/:id", UserController.read);
+router.put("/users/:id", UserController.edit);
+router.post("/movies", MovieController.add);
+router.get("/movies", MovieController.browse);
+
+// router.post("/items", UserController.add);
+// router.delete("/items/:id", UserController.delete);
+
+// router.post("/movies", MovieController.add);
 
 module.exports = router;
