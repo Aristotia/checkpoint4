@@ -30,13 +30,26 @@ export default function Counter(props) {
         onSubmit={handleSubmit(handleRegister)}
         className="connexion-register-form"
       >
-        <input type="text" placeholder="Votre Pseudo" {...register("pseudo")} />
-        <input type="text" placeholder="Votre Email" {...register("email")} />
-        <input
-          type="text"
-          placeholder="Votre Mot de Passe"
-          {...register("password")}
-        />
+        <label htmlFor="pseudo">
+          <input
+            type="text"
+            placeholder="Votre Pseudo"
+            {...register("pseudo")}
+          />
+        </label>
+
+        <label htmlFor="email">
+          {" "}
+          <input type="text" placeholder="Votre Email" {...register("email")} />
+        </label>
+
+        <label htmlFor="password">
+          <input
+            type="text"
+            placeholder="Votre Mot de Passe"
+            {...register("password")}
+          />
+        </label>
 
         <input type="submit" value="S'enregistrer" id="register-button" />
       </form>

@@ -15,7 +15,7 @@ function App() {
             <Route path="/" element={<ConnexionRegister />} />
             <Route path="/home" element={<Home />} />
             <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/criticmovie" element={<CriticMovie />} />
+            <Route path="/criticmovie/:id" element={<CriticMovie />} />
           </Routes>
         </Router>
       </UserContextProvider>

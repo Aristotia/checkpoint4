@@ -46,12 +46,22 @@ export default function Counter(props) {
         onSubmit={handleSubmit(handleConnexion)}
         className="connexion-register-form"
       >
-        <input type="text" placeholder="Votre Pseudo" {...register("pseudo")} />
-        <input
-          type="password"
-          placeholder="Votre Mot de Passe"
-          {...register("password")}
-        />
+        <label htmlFor="pseudo">
+          <input
+            type="text"
+            placeholder="Votre Pseudo"
+            {...register("pseudo")}
+          />
+        </label>
+
+        <label htmlFor="password">
+          <input
+            type="password"
+            placeholder="Votre Mot de Passe"
+            {...register("password")}
+          />
+        </label>
+
         <input type="submit" value="Se connecter" id="connect-button" />
       </form>
       <button type="button" className="redirect-button" onClick={handleDisplay}>

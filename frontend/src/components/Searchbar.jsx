@@ -20,11 +20,16 @@ export default function Searchbar({
             setSearchParameters(event.target.value);
           }}
         />
+
+        {searchResult ? (
+          <li className="search-item">
+            <img src={`${searchResult.Poster}`} alt="poster" />
+            {searchResult.Title}
+          </li>
+        ) : null}
+
         <input type="submit" id="submit-searchbar" />
       </form>
-      <ul className="searchbar-results">
-        {searchResult ? <li>{searchResult.Title}</li> : null}
-      </ul>
     </div>
   );
 }
