@@ -5,7 +5,7 @@ import "../assets/CSS/ConnexionRegister.css";
 import Header from "../components/Header";
 
 export default function ConnexionRegister() {
-  const [displayInterface, setDisplayInterface] = useState(false);
+  const [displayInterface, setDisplayInterface] = useState(true);
 
   const handleDisplay = () => {
     setDisplayInterface(!displayInterface);

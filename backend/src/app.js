@@ -3,6 +3,8 @@ const path = require("path");
 
 const cors = require("cors");
 
+const cookieParser = require("cookie-parser");
+
 // let's create express app
 
 const app = express();
@@ -17,7 +19,7 @@ app.use(
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../public")));
-
+app.use(cookieParser())
 // load router
 
 const router = require("./router");

@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
+
+import { UserContext } from "../contexts/UserContext";
 
 import batmanIcon from "../assets/Images/batman_icon.png";
 
@@ -12,6 +14,8 @@ export default function Counter(props) {
   const { handleDisplay } = props;
 
   const navigate = useNavigate();
+
+  const { setUserConnected } = useContext(UserContext);
 
   const validationSchema = yup.object().shape({
     pseudo: yup.string().required("Le pseudo est requis"),
@@ -25,6 +29,10 @@ export default function Counter(props) {
   const handleConnexion = (data) => {
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}/users/login`, data)
+      .then((res) => {
+        setUserConnected(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
+      })
       .then(() => navigate("/home", { replace: true }))
       .catch((error) => console.error(error));
   };

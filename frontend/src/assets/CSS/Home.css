@@ -1,0 +1,8 @@
+.Home {
+  height: 100vh;
+  background-color: var(--additional-color2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
